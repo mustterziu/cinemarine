@@ -25,7 +25,7 @@
                             <coming-soon-movies-component></coming-soon-movies-component>
                         </div>
                         <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-                            <p class="description">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
+                            <TableComponent></TableComponent>
                         </div>
                     </div>
                 </div>
@@ -38,9 +38,10 @@
     import LatestMoviesComponent from "./LatestMoviesComponent";
     import Banner from "./Banner";
     import ComingSoonMoviesComponent from "./ComingSoonMoviesComponent";
+    import TableComponent from "./TableComponent";
     export default {
         name: "HomeNavbar",
-        components: {ComingSoonMoviesComponent, Banner, LatestMoviesComponent}
+        components: {TableComponent, ComingSoonMoviesComponent, Banner, LatestMoviesComponent}
     }
 </script>
 

@@ -6,11 +6,11 @@ Vue.config.productionTip = false;
 
 import {BootstrapVue, BootstrapVueIcons} from "bootstrap-vue";
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faUser, faUsers, faUserGraduate, fas } from '@fortawesome/free-solid-svg-icons'
 
 
-library.add(faUserSecret)
+library.add(faUser, faUsers, faUserGraduate, fas);
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -22,8 +22,11 @@ import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
 import 'argon-design-system-free/assets/css/argon.min.css'
 import 'argon-design-system-free/assets/js/argon.min'
 
+
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
+import '@fortawesome/fontawesome-free/js/all.min'
+
 
 Vue.use(BootstrapVueIcons);
 Vue.use(BootstrapVue);
