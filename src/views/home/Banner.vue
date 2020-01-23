@@ -65,13 +65,17 @@
         data: () => ({
             slides: [
                 {
-                    title: 'El Teide Volcano, Spain',
-                    content: 'Photo by Max Rive',
-                    // You can also provide a URL for the image.
-                    image: 'el-teide-volcano-spain.66b9f05a.jpg',
-                    link: 'https://www.google.com'
+                    image: 'slider1.jpg',
+                    link: '/programi'
                 },
-                // Other slides.
+                {
+                    image: 'slider2.jpg',
+                    link: '/programi'
+                },
+                {
+                    image: 'slider3.jpg',
+                    link: '/programi'
+                }
             ]
         })
     }

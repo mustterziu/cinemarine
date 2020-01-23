@@ -17,22 +17,22 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'jquery/src/jquery.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
-import '@fortawesome/fontawesome-free/css/all.min.css'
-import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
+
 
 import 'argon-design-system-free/assets/css/argon.min.css'
 import 'argon-design-system-free/assets/js/argon.min'
+
+import '@fortawesome/fontawesome-free/css/all.min.css'
+import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 
 Vue.use(BootstrapVueIcons);
 Vue.use(BootstrapVue);
 
 import HeaderComponent from './components/HeaderComponent.vue'
 import FooterComponent from './components/FooterComponent.vue'
-import NavbarComponent from "./components/NavbarComponent";
 
 Vue.component('header-component', HeaderComponent);
 Vue.component('footer-component', FooterComponent);
-Vue.component('navbar-component', NavbarComponent);
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 

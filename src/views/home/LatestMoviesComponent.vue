@@ -4,7 +4,7 @@
             <div class="card-carousel">
                 <div class="card-carousel--overflow-container">
                     <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
-                        <div class="card-carousel--card" v-for="item in items"><img src="https://placehold.it/200x200"/>
+                        <div class="card-carousel--card" v-for="item in items"><img class="latestMovies" :src="item.image"/>
                             <div class="card-carousel--card--footer">
                                 <p>{{ item.name }}</p>
                                 <p class="tag" v-for="(tag,index) in item.tag" :class="index &gt; 0 ? 'secondary' : ''">{{ tag }}</p>
@@ -27,10 +27,11 @@
             windowSize: 3,
             paginationFactor: 220,
             items: [
-                {name: 'Kin Khao', tag: ["Thai"]},
-                {name: 'Jū-Ni', tag: ["Sushi", "Japanese", "$$$$"]},
-                {name: 'Delfina', tag: ["Pizza", "Casual"]},
-                {name: 'San Tung', tag: ["Chinese", "$$"]},
+                {name: 'Game Of Thrones', tag: ["Fantasy"], image: "/img/latestmovies/GoT1.jpg"},
+                {name: 'Bad Boys For Life', tag: ["Comedy", "Action", "+13"], image: "/img/latestmovies/badboys.jpg"},
+                {name: 'Titanic', tag: ["Romance"], image: "/img/latestmovies/titanic.jpg"},
+                {name: 'Fast And Furious', tag: ["Hmmm"], image: "/img/latestmovies/ff.jpg"},
+                {name: 'Batman', tag: ["Action"], image: "/img/latestmovies/batman.jpg"}
             ]
         }
     },
@@ -56,6 +57,10 @@
 </script>
 
 <style scoped>
+    .latestMovies{
+        width: 200px;
+        height: 200px;
+    }
     .card-carousel-wrapper {
         display: flex;
         align-items: center;
@@ -67,7 +72,7 @@
     .card-carousel {
         display: flex;
         justify-content: center;
-        width: 1100px;
+        width: 90%;
     }
     .card-carousel--overflow-container {
         overflow: hidden;
