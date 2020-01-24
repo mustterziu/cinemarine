@@ -3,7 +3,7 @@
     <Banner></Banner>
     <HomeNavbar></HomeNavbar>
     <OfertatComponent></OfertatComponent>
-   
+
   </div>
 </template>
 
