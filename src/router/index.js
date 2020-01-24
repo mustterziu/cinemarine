@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Test from '../components/Test.vue'
-import Features from "../views/Features";
+import Programi from "../views/Programi";
 
 Vue.use(VueRouter)
 
@@ -13,9 +13,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/features',
-    name: 'features',
-    component: Features
+    path: '/programi',
+    name: 'programi',
+    component: Programi
   },
   {
     path: '/about',
@@ -30,12 +30,12 @@ const routes = [
     name: 'test',
     component: Test
   }
-]
+];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
+});
 
 export default router

@@ -28,15 +28,22 @@ import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 import '@fortawesome/fontawesome-free/js/all.min'
 
 
-Vue.use(BootstrapVueIcons);
-Vue.use(BootstrapVue);
+
 
 import HeaderComponent from './components/HeaderComponent.vue'
 import FooterComponent from './components/FooterComponent.vue'
 
+
+Vue.use(BootstrapVueIcons);
+Vue.use(BootstrapVue);
+
+
+
 Vue.component('header-component', HeaderComponent);
 Vue.component('footer-component', FooterComponent);
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+
 
 
 
