@@ -1,19 +1,15 @@
-# cinema
-
-## Project setup
-```
+install dependencies <br>
+``
 npm install
-```
+``
 
-### Compiles and hot-reloads for development
-```
+update mongodb connection at server/config.json <br>
+start express js server <br>
+``
+npm run server
+``
+
+start vue js server in new terminal <br>
+``
 npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+``

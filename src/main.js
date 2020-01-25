@@ -14,8 +14,8 @@ library.add(faUser, faUsers, faUserGraduate, fas);
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import 'jquery/src/jquery.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
+import 'jquery/src/jquery.js'
 import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
 
 

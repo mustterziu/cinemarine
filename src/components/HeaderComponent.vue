@@ -46,7 +46,7 @@
                     </ul>
                     <ul class="navbar-nav align-items-lg-center ml-lg-auto">
                         <li class="nav-item">
-                            <a title="" class="nav-link nav-link-icon" href="https://www.instagram.com/naruto/" target="_blank" data-toggle="tooltip" data-original-title="Follow us on Instagram">
+                            <a title="" class="nav-link nav-link-icon"  target="_blank" data-toggle="tooltip" data-original-title="Follow us on Instagram">
                                 <font-awesome-icon icon="user-secret" />
                                 <span class="nav-link-inner--text d-lg-none">Instagram</span>
                             </a>
@@ -55,10 +55,10 @@
                         <li class="nav-item  d-lg-block ml-lg-4">
 
 
-                            <a title="Login" href="https://multicrm.laravel-bap.com/login" class="btn btn-link btn-sm">
+                            <a title="Login" class="btn btn-link btn-sm">
                                 <span class="nav-link-inner--text">Login</span>
                             </a>
-                            <a title="Sign Up" href="https://multicrm.laravel-bap.com/register" class="btn btn-md btn-success">
+                            <a title="Sign Up" class="btn btn-md btn-success">
                                 <span class="nav-link-inner--text">Sign Up</span>
                             </a>
                         </li>
