@@ -23,6 +23,7 @@ exports.getMovieById = async (req, res, next) => {
 
 exports.postMovie = (req, res, next) => {
     const movie = new Movie(req.body);
+
     movie.save()
         .then(movie => {
             res.status(201).json(movie);

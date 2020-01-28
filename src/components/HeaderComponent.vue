@@ -38,9 +38,9 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/rrethnesh" class="nav-link" role="button">
+                            <router-link to="/kontakti" class="nav-link" role="button">
                                 <i class="ni ni-ui-04 d-lg-none"></i>
-                                <span class="nav-link-inner--text font-weight-bold">Rreth Nesh</span>
+                                <span class="nav-link-inner--text font-weight-bold">Kontakti</span>
                             </router-link>
                         </li>
                     </ul>

@@ -52,28 +52,7 @@
             </div>
         </div>
 
-        <div class="container">
-            <div class="row row-grid text-center mt-5">
-                <div class="col-lg-12">
 
-                    <ul class="list-inline payments">
-                        <li>
-                            <i class="pw pw-stripe"></i>
-                        </li>
-                        <li>
-                            <i class="pw pw-paypal-new"></i>
-                        </li>
-                        <li>
-                            <i class="pw pw-visa"></i>
-                        </li>
-                        <li>
-                            <i class="pw pw-mastercard"></i>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
-        </div>
     </footer>
 </template>
 

@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Test from '../components/Test.vue'
 import Programi from "../views/Programi";
-import AboutUsComponent from "../views/AboutUsComponent";
+import KontaktiComponent from "../views/KontaktiComponent";
 
 Vue.use(VueRouter);
 
@@ -19,10 +19,10 @@ const routes = [
         component: Programi
     },
     {
-        path: '/about',
-        name: 'about',
+        path: '/kontakti',
+        name: 'kontakti',
 
-        component: AboutUsComponent
+        component: KontaktiComponent
     },
     {
         path: '/test',
