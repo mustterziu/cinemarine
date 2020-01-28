@@ -12,7 +12,6 @@
                     <div class="navbar-collapse-header">
                         <div class="row">
                             <div class="col-6 collapse-brand">
-                                <a href="https://saas.laravel-bap.com">
                                     <img src="https://saas.laravel-bap.com/storage/settings/September2018/Mx1DLC7xoK61GHPdvlgz.png">
                                 </a>
                             </div>
@@ -55,10 +54,10 @@
                         <li class="nav-item  d-lg-block ml-lg-4">
 
 
-                            <a title="Login" class="btn btn-link btn-sm">
+                            <a title="Login" data-target="#modal-form" data-toggle="modal" class="btn btn-link btn-sm">
                                 <span class="nav-link-inner--text">Login</span>
                             </a>
-                            <a title="Sign Up" class="btn btn-md btn-success">
+                            <a title="Sign Up" data-target="#exampleModalSignUp" data-toggle="modal" class="btn btn-md btn-success">
                                 <span class="nav-link-inner--text">Sign Up</span>
                             </a>
                         </li>
