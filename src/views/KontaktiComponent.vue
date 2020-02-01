@@ -73,7 +73,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fa fa-user-circle-o"></i></span>
                                         </div>
-                                        <input placeholder="Emri dhe Mbiemri" id="name" type="name" class="form-control " name="name" value="" required="">
+                                        <input placeholder="Emri dhe Mbiemri" id="name" type="name" class="form-control " name="name" value="" required="" v-model="name">
 
                                     </div>
 
@@ -84,7 +84,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                         </div>
-                                        <input placeholder="Posta elektronike(Email)" id="name" type="email" class="form-control " name="email" value="" required="">
+                                        <input placeholder="Posta elektronike(Email)" type="email" class="form-control" name="email" v-model="email">
 
                                     </div>
 
@@ -95,7 +95,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                         </div>
-                                        <input placeholder="Numri Telefonit" id="phone" type="text" class="form-control " name="phone" value="">
+                                        <input placeholder="Numri Telefonit" id="phone" type="text" class="form-control " name="phone" v-model="phone">
 
                                     </div>
 
@@ -103,12 +103,12 @@
 
                                 <div class="form-group col-lg-12">
 
-                                    <textarea id="message" placeholder="Mesazhi juaj..." class="form-control form-control-alternative " name="message" value="" required=""></textarea>
+                                    <textarea id="message" placeholder="Mesazhi juaj..." class="form-control form-control-alternative " name="message" value="" v-model="message"></textarea>
 
                                 </div>
 
                                 <div class="form-group col-lg-12">
-                                    <input type="submit" class="btn btn-default mb10" value="DERGO">
+                                    <button type="button" class="btn btn-default mb10" value="DERGO" @click="send()">Dergo</button>
                                     <p>
                                         <small>*Ekipi yne do te mundohet qe sa me pare tju kthehet me pergjigje!</small>
                                     </p>
@@ -126,7 +126,43 @@
 
 <script>
     export default {
-        name: "AboutUsComponent"
+        name: "AboutUsComponent",
+        data() {
+            return {
+                name: '',
+                email: '',
+                phone: '',
+                message: ''
+            }
+        },
+        methods: {
+            send: function(){
+                this.$http.post('/contact', {
+                    'name': this.name,
+                    'email': this.email,
+                    'phone': this.phone,
+                    'message': this.message,
+                }).then(value => {
+                    this.$toasted.show(value.data.msg, {
+                        theme: "outline",
+                        position: "top-center",
+                        duration : 5000
+                    });
+                    this.name = '';
+                    this.email = '';
+                    this.phone = '';
+                    this.message = '';
+
+                }).catch(reason => {
+                    console.log(reason.response);
+                    this.$toasted.show(reason.response.data, {
+                        theme: "outline",
+                        position: "top-center",
+                        duration : 5000
+                    });
+                });
+            }
+        }
     }
 </script>
 

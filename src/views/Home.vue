@@ -13,8 +13,8 @@
 import Banner from "./home/Banner";
 import HomeNavbar from "./home/HomeNavbar";
 import OfertatComponent from "./home/OfertatComponent";
-import SignUpModal from "../components/SignUpModal";
-import LoginModal from "../components/LoginModal";
+import SignUpModal from "../components/auth/SignUpModal";
+import LoginModal from "../components/auth/LoginModal";
 
 
 export default {

@@ -45,15 +45,13 @@
                     </ul>
                     <ul class="navbar-nav align-items-lg-center ml-lg-auto">
                         <li class="nav-item">
-                            <a title="" class="nav-link nav-link-icon"  target="_blank" data-toggle="tooltip" data-original-title="Follow us on Instagram">
+                            <a title="" class="nav-link nav-link-icon">
                                 <font-awesome-icon icon="user-secret" />
-                                <span class="nav-link-inner--text d-lg-none">Instagram</span>
+                                <span v-if="this.$store.state.user.isLoggedIn">Hello {{this.$store.state.user.username}}</span>
                             </a>
                         </li>
 
-                        <li class="nav-item  d-lg-block ml-lg-4">
-
-
+                        <li v-if="!this.$store.state.user.isLoggedIn" class="nav-item  d-lg-block ml-lg-4">
                             <a title="Login" data-target="#modal-form" data-toggle="modal" class="btn btn-link btn-sm">
                                 <span class="nav-link-inner--text">Login</span>
                             </a>
@@ -61,9 +59,11 @@
                                 <span class="nav-link-inner--text">Sign Up</span>
                             </a>
                         </li>
-
-
-
+                        <li v-else class="nav-item d-lg-block ml-lg-4">
+                            <a title="Logout" class="btn btn-link btn-sm" @click="logout()">
+                                <span class="nav-link-inner--text">Logout</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -75,10 +75,17 @@
 </style>
 
 <script>
+    import router from "../router";
+
     export default {
         data(){
             return {
                 search: String
+            }
+        },
+        methods: {
+            logout: function () {
+                this.$store.state.user.isLoggedIn = false;
             }
         }
     }

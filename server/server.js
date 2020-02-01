@@ -1,29 +1,30 @@
 require('rootpath')();
-const express = require('express');
-const app = express();
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const jwt = require('./helpers/jwt');
-const errorHandler = require('./helpers/error-handler');
-const mongoose = require('mongoose');
-const config = require('./config.json');
+import express from 'express';
+import cors from "cors";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
+import "regenerator-runtime/runtime";
 
+import config from "./config.json";
+
+import errorHandler from "./helpers/error-handler";
+
+const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-// use JWT auth to secure the api
-app.use(jwt());
-
 // api routes
-app.use('/users', require('./controllers/users.controller'));
+import authRoutes from './routes/authRoutes'
+app.use('/api/user', authRoutes);
 
-app.use('/api/movies', require('./routes/movieRouter'));
+import contactRoutes from './routes/contactRoutes'
+app.use('/api/contact', contactRoutes);
 
-// global error handler
+// app.use('/api/movies', require('./routes/movieRouter'));
+
 app.use(errorHandler);
 
-// start server
 const port = process.env.NODE_ENV === 'production' ? 80 : 4000;
 
 mongoose.connect(config.mongodb)

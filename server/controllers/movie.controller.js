@@ -1,3 +1,7 @@
+/**
+ *
+ * @type {Model<Document>}
+ */
 const Movie = require('../models/movie');
 
 exports.getAllMovies = async (req, res, next) => {

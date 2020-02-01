@@ -1,4 +1,4 @@
 {
-    "secret": "secret././././././,.123asd",
+    "secret": "secret123",
     "mongodb": "mongodb://localhost:27017/cinemarine"
 }
