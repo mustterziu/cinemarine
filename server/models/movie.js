@@ -5,25 +5,27 @@ const movieSchema = new Schema({
     title: String, // String is shorthand for {type: String}
     description: String,
     releaseYear: Number,
-    imageUrl: String,
+    image: {
+        data: Buffer,
+        contentType: String,
+        fileName: String,
+        encoding: String
+    },
     trailerVideoUrl: String,
     director: String,
     genres: [String],
     cast: [{
         name: String,
     }],
+    //todo move to another collection
     schedule: [{
-        time: Date,
+        date: Date,
+        slot: Number,
         room: String,
-        //roomId todo relation
         hasRoom: Boolean,
         hasFinished: Boolean
     }],
     addedBy: {type: Schema.Types.Object, ref: 'User'}
 });
 
-/**
- *
- * @type {Model}
- */
 module.exports = mongoose.model('Movie', movieSchema);

@@ -4,6 +4,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import "regenerator-runtime/runtime";
+import fileUpload from 'express-fileupload';
 
 import config from "./config.json";
 
@@ -13,6 +14,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(fileUpload());
 
 // api routes
 import authRoutes from './routes/authRoutes'
@@ -21,7 +23,8 @@ app.use('/api/user', authRoutes);
 import contactRoutes from './routes/contactRoutes'
 app.use('/api/contact', contactRoutes);
 
-// app.use('/api/movies', require('./routes/movieRouter'));
+import movieRouter from './routes/movieRouter'
+app.use('/api/movies', movieRouter);
 
 app.use(errorHandler);
 

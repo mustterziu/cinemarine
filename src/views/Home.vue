@@ -3,8 +3,6 @@
     <Banner></Banner>
     <HomeNavbar></HomeNavbar>
     <OfertatComponent></OfertatComponent>
-    <SignUpModal></SignUpModal>
-    <LoginModal></LoginModal>
   </div>
 </template>
 
@@ -13,12 +11,9 @@
 import Banner from "./home/Banner";
 import HomeNavbar from "./home/HomeNavbar";
 import OfertatComponent from "./home/OfertatComponent";
-import SignUpModal from "../components/auth/SignUpModal";
-import LoginModal from "../components/auth/LoginModal";
-
 
 export default {
   name: 'home',
-  components: {LoginModal, SignUpModal, HomeNavbar, Banner, OfertatComponent},
+  components: {HomeNavbar, Banner, OfertatComponent},
 }
 </script>

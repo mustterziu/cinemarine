@@ -4,6 +4,9 @@ import Home from '../views/Home.vue'
 import Test from '../components/Test.vue'
 import Programi from "../views/Programi";
 import KontaktiComponent from "../views/KontaktiComponent";
+import Dashboard from "../views/admin/Dashboard";
+import store from '../store/store'
+
 
 Vue.use(VueRouter);
 
@@ -28,6 +31,18 @@ const routes = [
         path: '/test',
         name: 'test',
         component: Test
+    },
+    {
+        path: '/admin',
+        name: 'admin',
+        component: Dashboard,
+        beforeEnter (to, from, next) {
+            if (store.state.auth.user.token) {
+                next()
+            } else {
+                next('/')
+            }
+        }
     }
 ];
 

@@ -9,6 +9,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUser, faUsers, faUserGraduate, fas } from '@fortawesome/free-solid-svg-icons'
 import Toasted from 'vue-toasted';
+import VueToast from 'vue-toast-notification';
+
 import Axios from 'axios';
 
 library.add(faUser, faUsers, faUserGraduate, fas);
@@ -39,13 +41,14 @@ Vue.prototype.$http = Axios;
 Vue.use(BootstrapVueIcons);
 Vue.use(BootstrapVue);
 Vue.use(Toasted);
+Vue.use(VueToast);
 
 Vue.component('header-component', HeaderComponent);
 Vue.component('footer-component', FooterComponent);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 
-import store from './store';
+import store from './store/store';
 
 new Vue({
   router,

@@ -1,4 +1,4 @@
 {
     "secret": "secret123",
-    "mongodb": "mongodb://localhost:27017/cinemarine"
+    "mongodb": "mongodb+srv://urim:TJqc4r6tP8Y2NSYe@nodedb-84x7y.azure.mongodb.net/cinemarine?retryWrites=true&w=majority"
 }
