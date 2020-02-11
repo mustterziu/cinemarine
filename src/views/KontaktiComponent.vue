@@ -3,25 +3,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-
                     <div class="col-lg-12 text-center mb-lg-lg">
-
                         <h2 class="display-2"><span>Kontakti</span></h2>
                         <p class="lead">
                             Keni pyetje shtese?! Ndihuni te lire te na shkruani!
                         </p>
-
                     </div>
-
                 </div>
 
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="feature-description">
-
                         <div class="d-flex px-3">
                             <div>
                                 <h3 class="text-success">Adresa </h3>
@@ -61,11 +56,8 @@
 
                     </div>
                 </div>
-                <!-- /.feature-sections -->
-                <div class="offset-xl-1 col-xl-6 offset-lg-1 col-lg-10 offset-md-1 col-md-10 col-sm-12 col-12 mt30">
-                    <form method="post" action="https://saas.laravel-bap.com/info/contact">
-                        <input type="hidden" name="_token" value="rTrizdraTamsPKkzM5nMgQrjmMPWf1YI5TxkgI0R">
-                        <!-- service-form -->
+                <div class="offset-xl-1 col-xl-5 offset-lg-1 col-lg-7 offset-md-1 col-md-7 col-sm-12 col-12">
+                    <form method="post">
                         <div class="service-form">
                             <div class="row">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb10 ">
@@ -77,7 +69,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fa fa-user-circle-o"></i></span>
                                         </div>
-                                        <input placeholder="Emri dhe Mbiemri" id="name" type="name"
+                                        <input placeholder="Emri dhe Mbiemri" id="name" type="text"
                                                class="form-control " name="name" value="" required="" v-model="name">
 
                                     </div>
@@ -91,7 +83,6 @@
                                         </div>
                                         <input placeholder="Posta elektronike(Email)" type="email" class="form-control"
                                                name="email" v-model="email">
-
                                     </div>
 
                                 </div>
@@ -108,40 +99,34 @@
 
                                 </div>
 
-                                <div class="form-group col-lg-12">
-                                    <input type="file" id="file" ref="file" v-on:change="readImg" accept="image/*">
-                                </div>
-
-                                <div class="form-group col-lg-12">
-                                    <button type="button" class="btn btn-outline-dark" @click="dlimg()">Image</button>
-                                    <img v-if="img != null" :src="img" alt="">
-                                </div>
-
+<!--                                <div class="form-group col-lg-12">-->
+<!--                                    <input type="file" id="file" ref="file" v-on:change="readImg" accept="image/*">-->
+<!--                                </div>-->
+<!--                                <div class="form-group col-lg-12">-->
+<!--                                    <button type="button" class="btn btn-outline-dark" @click="dlimg()">Image</button>-->
+<!--                                    <img v-if="img != null" :src="img" alt="">-->
+<!--                                </div>-->
 
                                 <div class="form-group col-lg-12">
 
                                     <textarea id="message" placeholder="Mesazhi juaj..."
-                                              class="form-control form-control-alternative " name="message" value=""
+                                              class="form-control form-control-alternative " name="message"
                                               v-model="message"></textarea>
-
                                 </div>
 
                                 <div class="form-group col-lg-12">
                                     <button type="button" class="btn btn-default mb10" value="DERGO"
-                                            @click="testImage()">Dergo
+                                            @click="send()">Dergo
                                     </button>
                                     <p>
                                         <small>*Ekipi yne do te mundohet qe sa me pare tju kthehet me pergjigje!</small>
                                     </p>
                                 </div>
-
-
                             </div>
                         </div>
                     </form>
                     <!-- /.service-form -->
                 </div>
-
             </div>
         </div>
     </div>
@@ -179,7 +164,6 @@
                 let formData = new FormData();
                 formData.append('img', this.image);
                 formData.append('title', this.name);
-
                 this.$http.post('contact/img', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -190,28 +174,31 @@
 
             },
             send: function () {
-                this.$http.post('/contact', {
-                    'name': this.name,
-                    'email': this.email,
-                    'phone': this.phone,
-                    'message': this.message,
+                this.$store.dispatch('postMessage', {
+                    name: this.name,
+                    email: this.email,
+                    phone: this.phone,
+                    message: this.message
                 }).then(value => {
-                    this.$toasted.show(value.data.msg, {
-                        theme: "outline",
-                        position: "top-center",
-                        duration: 5000
-                    });
-                    this.name = '';
-                    this.email = '';
-                    this.phone = '';
-                    this.message = '';
-
+                    if (value != null) {
+                        console.log('msg component value', value);
+                        this.$toasted.show(value.data.msg, {
+                            theme: "outline",
+                            position: "top-center",
+                            duration: 5000
+                        });
+                        this.name = '';
+                        this.email = '';
+                        this.phone = '';
+                        this.message = '';
+                    }
                 }).catch(reason => {
-                    console.log(reason.response);
+                    console.log('msg component error', reason);
                     this.$toasted.show(reason.response.data, {
-                        theme: "outline",
+                        theme: "bubble",
                         position: "top-center",
-                        duration: 5000
+                        duration: 5000,
+                        closeOnSwipe: true
                     });
                 });
             }

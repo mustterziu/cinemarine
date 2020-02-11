@@ -6,7 +6,7 @@
 
         <b-modal v-model="modalShow" size="sm" :hide-header=true :hide-footer=true>
             <div class="text-center text-muted mb-4">
-                <small>Kycu!</small>
+                <small>Regjistrohu!</small>
             </div>
             <form role="form">
                 <div class="form-group mb-3">

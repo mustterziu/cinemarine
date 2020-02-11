@@ -98,6 +98,7 @@
         methods: {
             logout: function () {
                 this.$store.dispatch('logout');
+                this.$router.push('/');
             }
         }
     }

@@ -41,7 +41,7 @@ export default {
         },
 
         isAdmin: state => {
-            return state.user.role === 1;
+            return state.user.role == 1;
         },
         user: state => {
             return state.user;
@@ -82,6 +82,11 @@ export default {
                     })
                         .then(value => {
                             console.log(value);
+                            localStorage.setItem('token', value.data.token);
+                            localStorage.setItem('id', value.data.id);
+                            localStorage.setItem('role', value.data.role);
+                            localStorage.setItem('username', value.data.username);
+
                             injectee.commit('authenticate', {
                                 id: value.data.id,
                                 username: value.data.username,
@@ -99,8 +104,27 @@ export default {
                 }
             })
         },
+        tryLogin: injectee => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                return
+            }
+            const id = localStorage.getItem('id');
+            const username = localStorage.getItem('username');
+            const role = localStorage.getItem('role');
+            injectee.commit('authenticate', {
+                id,
+                token,
+                username,
+                role
+            });
+        },
         logout: injectee => {
             injectee.commit('logout');
+            localStorage.removeItem('id');
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            localStorage.removeItem('role');
         }
     },
 };

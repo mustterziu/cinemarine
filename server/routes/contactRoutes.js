@@ -1,10 +1,33 @@
 import {Router} from "express";
 const router = new Router();
 
+import {authorize, admin} from "../helpers/verifyToken";
 import validate from '../validatiors/contactValidator'
 import Message from '../models/contact'
 
+router.get('/', authorize, admin, (req, res, next) => {
+   Message.find()
+       .then(messages => {
+           res.send(messages);
+           console.log(messages);
+       })
+       .catch(reason => console.log(reason));
+});
+
+router.delete('/:id', authorize, admin, (req, res, next) => {
+   const id = req.params.id;
+   Message.deleteOne({_id: id})
+       .then(value => {
+           res.status(200).send({msg: 'mesazhi i fshi me sukses'});
+       })
+       .catch(reason => {
+           res.status(400).send({msg: 'error deleting message'});
+           console.log(reason)
+       });
+});
+
 router.post('/', (req, res, next) => {
+    console.log('sending msg');
     const {error} = validate(req.body);
     if (error){
         res.status(422);
@@ -28,6 +51,7 @@ router.post('/', (req, res, next) => {
     });
 });
 
+//**************TESTING**********************************
 import Image from '../models/image';
 
 router.post('/img', (req, res, next) => {
