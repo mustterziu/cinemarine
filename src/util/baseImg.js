@@ -1,0 +1,6 @@
+/**
+ *
+ * @param image
+ * @type Buffer
+ */
+

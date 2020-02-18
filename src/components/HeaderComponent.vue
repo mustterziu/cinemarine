@@ -1,9 +1,9 @@
 <template>
     <header class="header-global">
-        <nav id="navbar-main" class="navbar  fixed-top  navbar-main navbar-expand-lg navbar-white bg-white">
+        <nav id="navbar-main" class="navbar fixed-top  navbar-main navbar-expand-lg navbar-white bg-white">
             <div class="container">
                 <router-link to="/#" class="navbar-brand mr-lg-5">
-                    <img src="img/logo.png">
+                    <img src="/img/logo.png">
                 </router-link>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global"
                         aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,8 +50,8 @@
                             <sign-up-modal></sign-up-modal>
                         </li>
 
-                        <li v-if="isAdmin" class="nav-item btn btn-sm btn-outline-info">
-                            <router-link to="/admin">
+                        <li v-if="isAdmin" class="nav-item">
+                            <router-link :to="{name: 'admin'}" class="btn btn-sm btn-outline-info">
                                 <span class="nav-link-inner--text">Dashboard</span>
                             </router-link>
                         </li>

@@ -31,14 +31,18 @@ const userSchema = new Schema({
       default: Date.now()
     },
     config:{
-        bgcolor: {
+        navbarColor: {
             type: String,
             default: '#FFFFFF'
         },
-        textcolor: {
+        navbarPosition: {
             type: String,
-            default: '#000000'
+            default: 'fixed'
         },
+        container: {
+            type: String,
+            default: 'container'
+        }
     }
 });
 

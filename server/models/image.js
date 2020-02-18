@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//not used
 const contactSchema = new Schema({
     title: String,
     image: { data: Buffer, contentType: String },

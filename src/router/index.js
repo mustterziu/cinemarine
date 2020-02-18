@@ -6,7 +6,7 @@ import Programi from "../views/Programi";
 import KontaktiComponent from "../views/KontaktiComponent";
 import Dashboard from "../views/admin/Dashboard";
 import store from '../store/store';
-import details from '../views/details/details';
+import Details from '../views/details/Details';
 
 
 Vue.use(VueRouter);
@@ -15,7 +15,11 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: Home
+        component: Home,
+        beforeEnter: (to, from, next) => {
+            store.commit('setLoading', true);
+            next();
+        }
     },
     {
         path: '/programi',
@@ -23,9 +27,9 @@ const routes = [
         component: Programi
     },
     {
-        path: '/shikodetajet',
+        path: '/detajet/:id',
         name: 'details',
-        component: details
+        component: Details,
     },
     {
         path: '/kontakti',
@@ -43,6 +47,7 @@ const routes = [
         name: 'admin',
         component: Dashboard,
         beforeEnter (to, from, next) {
+            store.commit('setLoading', true);
             if (store.state.auth.user.token) {
                 next()
             } else {

@@ -19,10 +19,10 @@
                 <div class="card-body">
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                            <latest-movies-component></latest-movies-component>
+                            <latest-movies></latest-movies>
                         </div>
                         <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                            <coming-soon-movies-component></coming-soon-movies-component>
+                            <upcoming-movies></upcoming-movies>
                         </div>
                         <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
                             <TableComponent></TableComponent>
@@ -35,19 +35,19 @@
 </template>
 
 <script>
-    import LatestMoviesComponent from "./LatestMoviesComponent";
+    import LatestMovies from "./LatestMovies";
     import Banner from "./Banner";
-    import ComingSoonMoviesComponent from "./ComingSoonMoviesComponent";
     import TableComponent from "./TableComponent";
+    import UpcomingMovies from "./UpcomingMovies";
     export default {
         name: "HomeNavbar",
-        components: {TableComponent, ComingSoonMoviesComponent, Banner, LatestMoviesComponent}
+        components: {UpcomingMovies, LatestMovies, TableComponent, Banner}
     }
 </script>
 
 <style scoped>
-    .nav-tabs{
-
+    .tab-content{
+        max-height: 450px;
     }
 
 </style>

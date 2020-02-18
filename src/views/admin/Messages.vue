@@ -6,6 +6,7 @@
             <template v-slot:top>
 
             </template>
+
             <template v-slot:item.action="{ item }">
                 <v-icon small class="mr-3">fas fa-eye</v-icon>
 
@@ -76,7 +77,10 @@
             }
         },
         created() {
-            this.$store.dispatch('getMessages');
+            this.$store.dispatch('setLoading', true);
+            this.$store.dispatch('getMessages').then(value => {
+                this.$store.commit('setLoading', false);
+            });
         }
     }
 </script>

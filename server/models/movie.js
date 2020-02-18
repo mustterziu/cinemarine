@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const movieSchema = new Schema({
-    title: String, // String is shorthand for {type: String}
+    title: String,
     description: String,
     releaseYear: Number,
     image: {
@@ -14,18 +14,10 @@ const movieSchema = new Schema({
     trailerVideoUrl: String,
     director: String,
     genres: [String],
-    cast: [{
-        name: String,
-    }],
-    //todo move to another collection
-    schedule: [{
-        date: Date,
-        slot: Number,
-        room: String,
-        hasRoom: Boolean,
-        hasFinished: Boolean
-    }],
-    addedBy: {type: Schema.Types.Object, ref: 'User'}
+    cast: [String],
+    comingSoon: {type: Boolean, default: false},
+    addedAt: {type: Date, default: Date.now()},
+    addedBy: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 
 module.exports = mongoose.model('Movie', movieSchema);

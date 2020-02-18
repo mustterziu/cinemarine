@@ -9,7 +9,6 @@ router.get('/', authorize, admin, (req, res, next) => {
    Message.find()
        .then(messages => {
            res.send(messages);
-           console.log(messages);
        })
        .catch(reason => console.log(reason));
 });
@@ -27,7 +26,6 @@ router.delete('/:id', authorize, admin, (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    console.log('sending msg');
     const {error} = validate(req.body);
     if (error){
         res.status(422);
@@ -53,30 +51,53 @@ router.post('/', (req, res, next) => {
 
 //**************TESTING**********************************
 import Image from '../models/image';
+import Movie from '../models/movie';
 
 router.post('/img', (req, res, next) => {
-    console.log(req.files.img);
-    let file = req.files.img;
-    const img = new Image({
-        title: req.body.title,
-        image: {data: file.data, contentType: file.mimetype},
-        mimeType: file.mimetype,
-        fileName: file.name,
-        encoding: file.encoding,
-    });
-    img.save().then(image =>{
-        res.send(image);
-    });
-    console.log(img);
-    // console.log(new Buffer(req.files.img.data, 'binary').toString());
+    console.log(req.files.file);
     console.log(req.body);
+
+    let file = req.files.file;
+    const movie = new Movie({
+        image: {
+            data: file.data,
+            contentType: file.mimetype,
+            fileName: file.name,
+            encoding: file.encoding
+        },
+        title: req.body.title,
+        description: req.body.description,
+        releaseYear: req.body.releaseYear,
+        trailerVideoUrl: req.body.trailerVideoUrl,
+        director: req.body.director,
+        genres: req.body.genres,
+        cast: req.body.cast
+    });
+    console.log(movie);
+    movie.save()
+        .then(value => {
+            console.log(value);
+        }).catch(reason => console.log(reason));
+    // const img = new Image({
+    //     title: req.body.title,
+    //     image: {data: file.data, contentType: file.mimetype},
+    //     mimeType: file.mimetype,
+    //     fileName: file.name,
+    //     encoding: file.encoding,
+    // });
+
+    // img.save().then(image =>{
+    //     res.send(image);
+    // });
+    // console.log(img);
+    // console.log(new Buffer(req.files.img.data, 'binary').toString());
 });
 
 router.get('/img', (req, res, next) => {
-   Image.findOne({_id: '5e402ca3c4266d40fcc0c2ba'})
-       .then(img =>{
+   Movie.findOne({_id: '5e45e4f5931f4b20d8c1db48'})
+       .then(movie =>{
            // res.contentType(img.mimeType);
-           res.send(img);
+           res.send(movie);
        })
        .catch(reason => console.log(reason));
 });

@@ -1,12 +1,14 @@
 <template>
     <div>
-        Movies Admin
+        <MovieTable></MovieTable>
     </div>
 </template>
 
 <script>
+    import MovieTable from "./components/MovieTable";
     export default {
-        name: "Movies"
+        name: "Movies",
+        components: {MovieTable},
     }
 </script>
 
