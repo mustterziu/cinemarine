@@ -46,8 +46,5 @@
 </script>
 
 <style scoped>
-    .tab-content{
-        max-height: 450px;
-    }
 
 </style>

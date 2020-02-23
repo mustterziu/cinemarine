@@ -15,6 +15,7 @@ module.exports = (data) => {
         director: Joi.string().min(3).max(20).required(),
         genres: Joi.array().optional(),
         cast: Joi.array().optional(),
+        comingSoon: Joi.optional()
     });
     return schema.validate(data);
 };

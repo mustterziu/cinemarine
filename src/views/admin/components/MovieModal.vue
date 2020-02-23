@@ -53,7 +53,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <croppa v-model="croppa"
-                                :width="200"
+                                :width="300"
                                 :height="200"
                                 placeholder="Upload image"
                                 :placeholder-font-size="14"
@@ -168,9 +168,8 @@
                 this.image = '';
                 this.editing = false;
             },
-            getBaseImg: (item) => {
-                let base64 = new Buffer(item.data, 'binary').toString('base64');
-                return `data:${item.data.mimeType};base64,${base64}`;
+            getImageUrl(item) {
+                return `http://localhost:4000/public/${item}`;
             },
 
             editModal: function (movie) {
@@ -186,7 +185,7 @@
                 this.cast = movie.cast;
                 this.comingSoon = movie.comingSoon;
                 this.trailerVideoUrl = movie.trailerVideoUrl;
-                this.image = this.getBaseImg(movie.image);
+                this.image = this.getImageUrl(movie.image);
             },
             addGenre: function () {
                 if (this.genre !== '' && !this.genres.includes(this.genre)) {
@@ -226,6 +225,7 @@
                 form.append('releaseYear', this.releaseYear);
                 form.append('trailerVideoUrl', this.trailerVideoUrl);
                 form.append('director', this.director);
+                form.append('comingSoon', this.comingSoon);
                 if (this.editing) {
                     form.append('id', this.id);
                 }

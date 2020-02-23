@@ -4,6 +4,8 @@ import express from "express";
 
 import Movie from "../models/movie";
 import validateMovie from '../validatiors/movieValidator';
+import path from '../helpers/path'
+import fs from 'fs';
 
 const router = express.Router();
 router.get('/', async (req, res, next) => {
@@ -42,32 +44,31 @@ router.post('/', authorize, admin, (req, res, next) => {
         res.status(422);
         return res.send(error.details[0].message);
     }
+
     let file = req.files.file;
-
-    const movie = new Movie({
-        image: {
-            data: file.data,
-            contentType: file.mimetype,
-            fileName: file.name,
-            encoding: file.encoding
-        },
-        title: req.body.title,
-        description: req.body.description,
-        releaseYear: req.body.releaseYear,
-        trailerVideoUrl: req.body.trailerVideoUrl,
-        director: req.body.director,
-        comingSoon: req.body.comingSoon,
-        genres: req.body.genres,
-        cast: req.body.cast
-    });
-
-    movie.save()
-        .then(movie => {
-            res.status(201).json({msg: 'movie was saved successfully', movie});
-        })
-        .catch(reason => {
-            res.status(400).json({msg: 'error creating movie'});
+    let filename = Date.now().toString() + file.name;
+    file.mv(`${path}/uploads/${filename}`, (val) =>{
+        console.log(val);
+        const movie = new Movie({
+            image: filename,
+            title: req.body.title,
+            description: req.body.description,
+            releaseYear: req.body.releaseYear,
+            trailerVideoUrl: req.body.trailerVideoUrl,
+            director: req.body.director,
+            comingSoon: req.body.comingSoon,
+            genres: req.body.genres,
+            cast: req.body.cast
         });
+        movie.save()
+            .then(movie => {
+                res.status(201).json({msg: 'movie was saved successfully', movie});
+            })
+            .catch(reason => {
+                fs.unlink(`${path}/uploads/${filename}`);
+                res.status(400).json({msg: 'error creating movie'});
+            });
+    });
 });
 
 router.get('/:id', async (req, res, next) => {
@@ -84,6 +85,8 @@ router.get('/:id', async (req, res, next) => {
 });
 
 router.put('/:id', authorize, admin, (req, res) => {
+    console.log(req.body);
+
     const {error} = validateMovie(req.body);
     if (error) {
         res.status(422);
@@ -96,12 +99,10 @@ router.put('/:id', authorize, admin, (req, res) => {
         .then(movie => {
             if (req.files !== null) {
                 let file = req.files.file;
-                movie.image = {
-                    data: file.data,
-                    contentType: file.mimetype,
-                    fileName: file.name,
-                    encoding: file.encoding
-                }
+                let filename = Date.now().toString() + file.name;
+                fs.unlink(`${path}/uploads/${movie.image}`, err => {console.log(err)});
+                file.mv(`${path}/uploads/${filename}`);
+                movie.image = filename;
             }
             movie.title = req.body.title;
             movie.description = req.body.description;
@@ -114,7 +115,6 @@ router.put('/:id', authorize, admin, (req, res) => {
             return movie.save();
         })
         .then(updatedMovie => {
-
             res.status(200).json({msg: 'movie was updated', updatedMovie});
         })
         .catch(reason => {

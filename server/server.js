@@ -14,11 +14,15 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(fileUpload());
+app.use(fileUpload({}));
+app.use('/public',express.static('uploads'));
 
 // api routes
 import authRoutes from './routes/authRoutes'
 app.use('/api/user', authRoutes);
+
+import userRoutes from './routes/userRoutes'
+app.use('/api/users', userRoutes);
 
 import contactRoutes from './routes/contactRoutes'
 app.use('/api/contact', contactRoutes);

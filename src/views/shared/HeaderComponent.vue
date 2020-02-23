@@ -1,6 +1,6 @@
 <template>
     <header class="header-global">
-        <nav id="navbar-main" class="navbar fixed-top  navbar-main navbar-expand-lg navbar-white bg-white">
+        <nav id="navbar-main" v-navconfig="{position: this.navPosition, color: this.navColor}" class="navbar navbar-main navbar-expand-lg">
             <div class="container">
                 <router-link to="/#" class="navbar-brand mr-lg-5">
                     <img src="/img/logo.png">
@@ -57,6 +57,10 @@
                         </li>
 
                         <li v-if="isAuthenticated" class="nav-item d-lg-block ml-lg-4">
+                            <config-modal></config-modal>
+                        </li>
+
+                        <li v-if="isAuthenticated" class="nav-item d-lg-block ml-lg-4">
                             <span class="nav-link-inner--text">{{user.username}}</span>
                         </li>
 
@@ -70,24 +74,28 @@
             </div>
         </nav>
     </header>
+
 </template>
 <style>
 
 </style>
 
 <script>
-    import router from "../router";
+    import router from "../../router";
     import LoginModal from "./auth/LoginModal";
     import SignUpModal from "./auth/SignUpModal";
     import {mapGetters} from 'vuex';
+    import ConfigModal from "./ConfigModal";
 
     export default {
-        components: {SignUpModal, LoginModal},
+        components: {ConfigModal, SignUpModal, LoginModal},
         computed: {
             ...mapGetters({
                 isAuthenticated: 'isAuthenticated',
                 isAdmin: 'isAdmin',
-                user: 'user'
+                user: 'user',
+                navPosition: 'getNavPosition',
+                navColor: 'getNavColor'
             }),
         },
         data() {

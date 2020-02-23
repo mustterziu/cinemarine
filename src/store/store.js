@@ -2,14 +2,11 @@ import Vue from 'vue';
 import vuex from 'vuex';
 import axios from 'axios';
 
-
-axios.defaults.baseURL = 'http://localhost:4000/api/';
+axios.defaults.baseURL = 'http://localhost:4000/api';
 const token = localStorage.getItem('token');
 // if (token != null) {
 //     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 // }
-
-import auth from './modules/auth';
 
 const headers = () => {
     return {
@@ -17,165 +14,80 @@ const headers = () => {
     };
 };
 
+import auth from './modules/auth';
+import movie from './modules/movie';
+import contact from "./modules/contact";
+
 Vue.use(vuex, axios);
 
 export default new vuex.Store({
     state: {
         config: {
-            bgcolor: '#FFFFFF',
-            textcolor: '#000000'
+            navbar: 'sticky',
+            navcolor: 'white'
         },
-        messages: [],
         loading: false,
-        allMovies: [],
-        latestMovies: [],
-        upcomingMovies: [],
+        users: []
     },
-
     getters: {
         isLoading: state => {
             return state.loading
         },
-        messages: state => {
-            return state.messages
+        getUsers: state => {
+            return state.users
         },
-
-        allMovies: state => {
-            return state.allMovies
+        getNavPosition: state => {
+            return state.config.navbar
         },
-        latestMovies: state => {
-            return state.latestMovies;
-        },
-        upcomingMovies: state => {
-            return state.upcomingMovies;
+        getNavColor: state => {
+            return state.config.navcolor
         }
-
     },
 
     mutations: {
-        messages: (state, payload) => {
-            state.messages = payload
-        },
         setLoading: (state, payload) => {
             state.loading = payload
         },
-
-        setAllMovies: (state, payload) => {
-            state.allMovies = payload
+        setAllUsers: (state, payload) => {
+            state.users = payload
         },
-        setLatestMovies: (state, payload) => {
-            state.latestMovies = payload
+        setNavbarPosition: (state, payload) => {
+            state.config.navbar = payload
         },
-        setUpcomingMovies: (state, payload) => {
-            state.upcomingMovies = payload;
-        },
-        addMovie: (state, payload) => {
-            state.allMovies.push(payload);
+        setNavbarColor: (state, payload) => {
+            state.config.navcolor = payload
         }
     },
     actions: {
-        getMessages: injectee => {
-            let headers = {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            };
+        //Users
+        getAllUsers: injectee => {
             injectee.commit('setLoading', true);
-            axios.get('contact', {headers}).then(value => {
-                console.log(value.data);
-                injectee.commit('messages', value.data);
-                injectee.commit('setLoading', false);
-            }).catch(reason => console.log(reason.response));
-        },
-        deleteMessage: (injectee, payload) => {
-            axios.delete(`/contact/${payload}`, {headers: headers()}).then(value => {
-                console.log(value);
-                injectee.dispatch('getMessages');
-            }).catch(reason => console.log(reason));
-        },
-        postMessage: (injectee, payload) => {
-            return new Promise((resolve, reject) => {
-                axios.post('/contact', {
-                    name: payload.name,
-                    email: payload.email,
-                    phone: payload.phone,
-                    message: payload.message
-                }).then(value => {
-                    console.log('store', value);
-                    resolve(value);
-                }).catch(reason => {
-                    console.log(reason);
-                    reject(reason)
-                });
-            });
-
-        },
-
-        getMovieDetails: (injectee, payload) => {
-            return new Promise((resolve, reject) => {
-                axios.get(`/movies/${payload}`)
-                    .then(value => {
-                        console.log(value);
-                        resolve(value.data);
-                    })
-                    .catch(reason => {
-                        reject(reason);
-                    })
-            });
-        },
-        getAllMovies: injectee => {
-            return new Promise((resolve, reject) => {
-                axios.get('/movies', {headers: headers()})
-                    .then(value => {
-                        injectee.commit('setAllMovies', value.data);
-                        resolve(value);
-                    }).catch(reason => {
-                    reject(reason);
-                });
-            });
-        },
-        postMovie: (injectee, payload) => {
-            return new Promise((resolve, reject) => {
-                axios.post('/movies', payload, {headers: headers()})
-                    .then(value => {
-                        console.log(value.data);
-                        injectee.commit('addMovie', value.data.movie);
-                        resolve(value);
-                    })
-                    .catch(reason => {
-                        console.log(reason.response);
-                        reject(reason);
-                    });
-            })
-        },
-        editMovie: (injectee, payload) => {
-            console.log(payload.id);
-            return new Promise((resolve, reject) => {
-                axios.put(`/movies/${payload.id}`, payload.form, {headers: headers()})
-                    .then(value => {
-                        injectee.dispatch('getAllMovies');
-                        resolve(value);
-                    }).catch(reason => {
-                    reject(reason);
-                });
-            });
-        },
-        getLatestMovies: injectee => {
-            axios.get('/movies/latest').then(value => {
-                injectee.commit('setLatestMovies', value.data);
-            }).catch(reason => {
-                console.log(reason);
-            })
-        },
-        getUpcomingMovies: injectee => {
-            axios.get('/movies/upcoming')
+            axios.get('/users', {headers: headers()})
                 .then(value => {
-                    injectee.commit('setUpcomingMovies', value.data);
+                    injectee.commit('setLoading', false);
+                    injectee.commit('setAllUsers', value.data);
                 })
                 .catch(reason => {
-                    console.log(reason);
+                    injectee.commit('setLoading', true);
+                    throw reason.response.data
                 })
         },
-        changeMovieStatus: (injectee, payload) => {
-            axios.put(`/movies/changeStatus/${payload.id}`, {value: payload.value}, {headers: headers()})
+        deleteUser: (injectee, payload) => {
+            injectee.commit('setLoading', true);
+            return new Promise((resolve, reject) => {
+                axios.delete(`/users/${payload}`, {headers: headers()})
+                    .then(value => {
+                        injectee.commit('setLoading', false);
+                        resolve(value);
+                    })
+                    .catch(reason => {
+                        injectee.commit('setLoading', false);
+                        reject(reason);
+                    })
+            });
+        },
+        editUser: ({commit, dispatch}, payload) => {
+            axios.put(`/users/${payload.id}`,{role: payload.role}, {headers: headers()})
                 .then(value => {
                     console.log(value);
                 })
@@ -183,18 +95,38 @@ export default new vuex.Store({
                     console.log(reason);
                 })
         },
-        deleteMovie: (injectee, payload) => {
-            return new Promise((resolve, reject) => {
-                axios.delete(`/movies/${payload}`, {headers: headers()})
-                    .then(value => {
-                        injectee.dispatch('getAllMovies');
-                        resolve();
-                    })
-                    .catch(reason => {
-                        reject(reason);
-                    })
-            });
-        }
+        //Config
+        setNavPosition: (injectee, payload) => {
+            injectee.commit('setNavbarPosition', payload);
+        },
+        setNavColor: (injectee, payload) => {
+            injectee.commit('setNavbarColor', payload);
+        },
+        getConfig: injectee => {
+            axios.get('/users/config', {headers: headers()})
+                .then(value => {
+                    injectee.commit('setNavbarColor', value.data.navbarColor);
+                    injectee.commit('setNavbarPosition', value.data.navbarPosition);
+                })
+                .catch(reason => {
+                    console.log(reason);
+                });
+        },
+        updateUserConfig: (injectee, payload) => {
+            axios.post('/users/config', payload, {headers: headers()})
+                .then(value => {
+
+                })
+                .catch(reason => {
+                    console.log(reason);
+                })
+        },
+        setDefaultConfig: injectee => {
+            injectee.commit('setNavbarColor', 'white');
+            injectee.commit('setNavbarPosition', 'sticky');
+        },
+        //TODO Programi actions
+
     },
-    modules: {auth}
+    modules: {auth, movie, contact}
 });

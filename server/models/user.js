@@ -27,10 +27,10 @@ const userSchema = new Schema({
         default: 0
     },
     date: {
-      type: Date,
-      default: Date.now()
+        type: Date,
+        default: Date.now()
     },
-    config:{
+    config: {
         navbarColor: {
             type: String,
             default: '#FFFFFF'

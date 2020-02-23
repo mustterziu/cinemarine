@@ -1,15 +1,14 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-
-const bcrypt = require('bcryptjs');
-
-const router = express.Router();
-
 import {authorize} from '../helpers/verifyToken';
 import {UserValidator} from '../validatiors/userValidator';
 import {secret} from '../config';
 
 import User from '../models/user';
+
+const bcrypt = require('bcryptjs');
+
+const router = express.Router();
 
 router.post('/register', async (req, res, next) => {
     //Validate input
@@ -68,8 +67,29 @@ router.post('/login', async (req, res, next) => {
     }
 });
 
-router.get('/test', authorize, (req, res, next) => {
-    res.send('auth');
+router.post('/password', authorize, (req, res, next) => {
+    User.findById(req.user._id).then(async user => {
+        try {
+            const valid = await bcrypt.compare(req.body.password, user.password);
+            if(!valid){
+                res.status(400).send({msg: 'current password is invalid'});
+            }
+            if(req.body.newPassword.length < 8){
+                return res.status(400).send({msg: 'Passwordi duhet ti kete 8 shkronja'});
+            }else{
+                const salt = await bcrypt.genSalt(10);
+                user.password = await bcrypt.hash(req.body.newPassword, salt);
+                return user.save();
+            }
+        }catch (e) {
+            res.status(400).send({msg: 'error changing pw', e});
+        }
+    }).then(value => {
+        res.send({msg: 'password was sucessfuly updated'});
+    }).catch(reason => {
+        console.log(reason);
+        res.status(400).send(reason);
+    })
 });
 
 module.exports = router;

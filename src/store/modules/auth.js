@@ -1,5 +1,9 @@
 import axios from "axios";
-
+const headers = () => {
+    return {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+    };
+};
 /**
  *
  * @type {Vue.$store}
@@ -39,7 +43,6 @@ export default {
         isAuthenticated: state => {
             return !!state.user.token;
         },
-
         isAdmin: state => {
             return state.user.role == 1;
         },
@@ -86,7 +89,6 @@ export default {
                             localStorage.setItem('id', value.data.id);
                             localStorage.setItem('role', value.data.role);
                             localStorage.setItem('username', value.data.username);
-
                             injectee.commit('authenticate', {
                                 id: value.data.id,
                                 username: value.data.username,
@@ -94,6 +96,7 @@ export default {
                                 role: value.data.role
                             });
                             injectee.commit('setMessage', null);
+                            injectee.dispatch('getConfig');
                             resolve();
                         })
                         .catch(reason => {
@@ -118,13 +121,26 @@ export default {
                 username,
                 role
             });
+            injectee.dispatch('getConfig');
         },
         logout: injectee => {
             injectee.commit('logout');
+            injectee.dispatch('setDefaultConfig');
             localStorage.removeItem('id');
             localStorage.removeItem('token');
             localStorage.removeItem('username');
             localStorage.removeItem('role');
+        },
+        changePassword: (injectee, payload) => {
+            return new Promise((resolve, reject) => {
+                axios.post('user/password', payload, {headers: headers()})
+                    .then(value => {
+                        resolve(value.data);
+                    })
+                    .catch(reason => {
+                        reject(reason.response.data);
+                    })
+            })
         }
     },
 };

@@ -1,5 +1,5 @@
 <template>
-    <div class="container--fluid margin-120" >
+    <div class="container--fluid margin-120">
         <v-card>
             <v-toolbar flat color="primary">
                 <v-toolbar-title>Dashboard</v-toolbar-title>
@@ -35,7 +35,7 @@
                 </v-tab-item>
                 <v-tab-item>
                     <v-card flat>
-                        <Offers></Offers>
+                        <Users></Users>
                     </v-card>
                 </v-tab-item>
                 <v-tab-item>
@@ -52,16 +52,18 @@
     import Movies from "./Movies";
     import Offers from "./Offers";
     import Messages from "./Messages";
+    import Users from './Users'
+
     export default {
         name: "Dashboard",
-        components: {Messages, Offers, Movies},
+        components: {Messages, Offers, Movies, Users},
         methods: {
-          startLoader(){
-              this.$store.commit('setLoading', true);
-              setTimeout( () => {
-                  this.$store.commit('setLoading', false);
-              }, 2000)
-          }
+            startLoader() {
+                this.$store.commit('setLoading', true);
+                setTimeout(() => {
+                    this.$store.commit('setLoading', false);
+                }, 2000)
+            }
         },
         created() {
             this.$store.commit('setLoading', false);

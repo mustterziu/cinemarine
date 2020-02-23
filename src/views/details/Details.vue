@@ -5,7 +5,7 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-6">
-                            <img :src="getBaseImg(movie.image)" height="200" width="200"/>
+                            <img :src="getImageUrl(movie.image)" height="200" width="200"/>
                         </div>
                         <div class="col-md-6">
                             <input
@@ -69,9 +69,8 @@
             }
         },
         methods: {
-            getBaseImg(item) {
-                let base64 = new Buffer(item.data, 'binary').toString('base64');
-                return `data:${item.data.mimeType};base64,${base64}`;
+            getImageUrl(item) {
+                return `http://localhost:4000/public/${item}`;
             },
             getEmbedUrl(url) {
                 const param = url.split('?v=')[1];

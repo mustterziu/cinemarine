@@ -5,7 +5,7 @@
                 <MovieModal ref="movieModal"></MovieModal>
             </template>
             <template v-slot:item.image="{item}">
-                <img :src="getBaseImg(item.image)" alt="" height="200" width="200">
+                <img :src="getImageUrl(item.image)" alt="" height="200" width="200">
             </template>
             <template v-slot:item.commingSoon="{item}">
                 <toggle-button :value="item.comingSoon" @change="changeValue(item)"
@@ -76,9 +76,8 @@
                 this.selectedItem = item;
                 this.showConfirmation = true;
             },
-            getBaseImg(item) {
-                let base64 = new Buffer(item.data, 'binary').toString('base64');
-                return `data:${item.data.mimeType};base64,${base64}`;
+            getImageUrl(item) {
+                return `http://localhost:4000/public/${item}`;
             },
             changeValue(item) {
                 item.comingSoon = !item.comingSoon;
