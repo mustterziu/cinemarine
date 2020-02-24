@@ -30,6 +30,9 @@ app.use('/api/contact', contactRoutes);
 import movieRouter from './routes/movieRouter'
 app.use('/api/movies', movieRouter);
 
+import programiRouter from './routes/programiRouter'
+app.use('/api/programi', programiRouter);
+
 app.use(errorHandler);
 
 const port = process.env.NODE_ENV === 'production' ? 80 : 4000;
